@@ -15,7 +15,6 @@ class NewArray {
     }
 
     memory.set(this.ptr + this.length, value);
-    console.log(memory.memory);
     this.length++;
   }
 
