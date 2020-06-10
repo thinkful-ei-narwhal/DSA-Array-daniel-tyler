@@ -169,21 +169,32 @@ function products(arr, output = [], count = arr.length) {
 console.log(products([1, 3, 9, 4]));
 
 //11
-function twodee(arr, output = arr) {
-  if (arr.length === 0) {
-    return output;
-  }
-  for (let i = 0; i < arr[0].length; i++) {
-    if (arr[0][i] === 0) {
-      output = turnColToZero(output, i);
-      output[0] = turnRowToZero(output[0]);
+function zeroRowsColumns(mat) {
+  const zeroRows = [];
+  const zeroCols = [];
+  for (let i = 0; i < mat.length; i++) {
+    let row = mat[i];
+    for (let j = 0; j < row.length; j++) {
+      const item = row[j];
+      if (item === 0) {
+        zeroRows[i] = true;
+        zeroCols[j] = true;
+      }
     }
   }
-  return twodee(arr.slice(1), output);
+  for (let i = 0; i < mat.length; i++) {
+    let row = mat[i];
+    for (let j = 0; j < row.length; j++) {
+      if (zeroRows[i] || zeroCols[j]) {
+        row[j] = 0;
+      }
+    }
+  }
+  return mat;
 }
 
 console.log(
-  twodee([
+  zeroRowsColumns([
     [1, 0, 1, 1, 0],
     [0, 1, 1, 1, 0],
     [1, 1, 1, 1, 1],
@@ -192,20 +203,8 @@ console.log(
   ])
 );
 
-function turnColToZero(arr, idx) {
-  if (arr.length === 0) {
-    return [];
-  }
-
-  arr[0][idx] = 0;
-  return [arr[0], ...turnColToZero(arr.slice(1), idx)];
+//12
+function rotate(string1, string2) {
+  return (string2 + string2).indexOf(string1) != -1;
 }
-
-function turnRowToZero(arr) {
-  if (arr.length === 0) {
-    return [];
-  }
-
-  arr[0] = 0;
-  return [arr[0], ...turnRowToZero(arr.slice(1))];
-}
+console.log(rotate("amazon", "azonam"));
